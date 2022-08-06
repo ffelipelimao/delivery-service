@@ -1,0 +1,28 @@
+version: '3'
+networks:
+    default:
+        driver: bridge
+        ipam:
+            config:
+                 - subnet: 192.167.0.0/16
+
+volumes:
+    database:
+        driver: local            
+
+services:
+          
+    database:
+        build:
+            context: ./docker/database
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: delivery
+            MYSQL_USER: user
+            MYSQL_PASSWORD: pass
+            TZ: America/Sao_Paulo
+        volumes:
+            - database:/var/lib/database
+            - ./docker/database/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+        ports:
+            - "3306:3306"
