@@ -8,8 +8,8 @@ import (
 
 func Setup(g *gin.Engine) {
 
-	router := g.Group("/api/v1")
+	router := g.Group("/api/v1/delivery")
 
-	deliveryController := presentation.NewDeliveryController()
-	router.GET("/delivery", adapter.AdaptRoute(deliveryController))
+	RegisterGetController := presentation.NewGetRegisterController()
+	router.GET("/Register", adapter.AdaptRoute(RegisterGetController))
 }
