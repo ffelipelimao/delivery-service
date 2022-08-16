@@ -2,14 +2,23 @@ package main
 
 import (
 	"github.com/ffelipelimao/delivery-service/internal/application/presentation"
+	"github.com/ffelipelimao/delivery-service/internal/application/repository"
+	"github.com/ffelipelimao/delivery-service/internal/application/services"
 	"github.com/ffelipelimao/delivery-service/internal/framework/server/adapter"
 	"github.com/gin-gonic/gin"
+	"github.com/jinzhu/gorm"
 )
 
-func Setup(g *gin.Engine) {
+func Setup(g *gin.Engine, db *gorm.DB) {
 
-	router := g.Group("/api/v1/delivery")
+	router := g.Group("/v1/delivery")
 
-	RegisterGetController := presentation.NewGetRegisterController()
-	router.GET("/Register", adapter.AdaptRoute(RegisterGetController))
+	registerGetController := presentation.NewGetRegisterController()
+	router.GET("/register", adapter.AdaptRoute(registerGetController))
+
+	objectRepository := repository.NewObjectRepository(db)
+	registerRepository := repository.NewRegisterRepository(db)
+	registerCreteService := services.NewRegisterService(registerRepository, objectRepository)
+	registerCreateController := presentation.NewCreateRegisterController(registerCreteService)
+	router.POST("/register", adapter.AdaptRoute(registerCreateController))
 }
