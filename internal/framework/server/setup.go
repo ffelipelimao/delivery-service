@@ -6,6 +6,7 @@ import (
 
 	"github.com/ffelipelimao/delivery-service/internal/framework/database"
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 )
 
 var db database.Database
@@ -13,13 +14,10 @@ var db database.Database
 func init() {
 
 	//Remove this code to Debug Mode in Vscode
-
-	/*
-		err := godotenv.Load()
-		if err != nil {
-			log.Fatalf("Error loading .env file")
-		}
-	*/
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatalf("Error loading .env file")
+	}
 
 	db.DsnTest = os.Getenv("DSN_TEST")
 	db.Dsn = os.Getenv("DSN")
