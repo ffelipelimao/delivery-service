@@ -8,6 +8,8 @@ func NewGetRegisterController() Controller {
 }
 
 func (s *GetRegisterController) Handle(req HttpRequest) HttpResponse {
+	// TODO: Create a context
+
 	var e interface{}
 	return ok(e)
 }
