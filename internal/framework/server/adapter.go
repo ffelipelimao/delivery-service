@@ -8,9 +8,17 @@ import (
 func AdaptRoute(controller presentation.Controller) func(c *gin.Context) {
 
 	return func(c *gin.Context) {
-		//TODO: Refactor adapter to handle with errors, query params, paths...
+		queries := c.Request.URL.Query()
+		presentationParam := make(map[string]string)
 
-		request := presentation.HttpRequest{Body: c.Request.Body}
+		for _, param := range Params {
+			value := c.Param(param)
+			if value != "" {
+				presentationParam[param] = value
+			}
+		}
+
+		request := presentation.HttpRequest{Params: presentationParam, Query: queries, Body: c.Request.Body}
 		response := controller.Handle(request)
 		c.JSON(response.StatusCode, response.Body)
 	}

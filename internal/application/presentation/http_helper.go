@@ -3,12 +3,14 @@ package presentation
 import "io"
 
 type HttpRequest struct {
-	Body io.Reader
+	Params map[string]string
+	Query  map[string][]string
+	Body   io.Reader
 }
 
 type HttpResponse struct {
 	StatusCode int
-	Body       interface{}
+	Body       any
 }
 
 type Error struct {
