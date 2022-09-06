@@ -15,7 +15,7 @@ const (
 	registry     = "/register"
 )
 
-var Params = setupParams()
+var params = setupParams()
 
 func Setup(g *gin.Engine, db *gorm.DB) {
 
