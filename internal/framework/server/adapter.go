@@ -1,11 +1,11 @@
-package main
+package server
 
 import (
 	"github.com/ffelipelimao/delivery-service/internal/application/presentation"
 	"github.com/gin-gonic/gin"
 )
 
-func AdaptRoute(controller presentation.Controller) func(c *gin.Context) {
+func adaptRoute(controller presentation.Controller) func(c *gin.Context) {
 
 	return func(c *gin.Context) {
 		queries := c.Request.URL.Query()

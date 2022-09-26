@@ -5,7 +5,7 @@ import (
 	"os"
 
 	"github.com/ffelipelimao/delivery-service/internal/framework/database"
-	"github.com/gin-gonic/gin"
+	"github.com/ffelipelimao/delivery-service/internal/framework/server"
 	"github.com/joho/godotenv"
 )
 
@@ -27,7 +27,6 @@ func init() {
 }
 
 func main() {
-	app := gin.Default()
 
 	DBConnection, err := db.Connect()
 	if err != nil {
@@ -35,6 +34,6 @@ func main() {
 	}
 	defer DBConnection.Close()
 
-	Setup(app, DBConnection)
-	app.Run(":8080")
+	server.Start(DBConnection)
+
 }

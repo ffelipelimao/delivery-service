@@ -1,4 +1,4 @@
-package main
+package server
 
 import (
 	"github.com/ffelipelimao/delivery-service/internal/application/presentation"
@@ -13,16 +13,16 @@ const (
 	registry     = "/register"
 )
 
-func Setup(g *gin.Engine, db *gorm.DB) {
+func setup(g *gin.Engine, db *gorm.DB) {
 
 	router := g.Group("/v1/delivery")
 
 	registerGetController := presentation.NewGetRegisterController()
-	router.GET(registryByID, AdaptRoute(registerGetController))
+	router.GET(registryByID, adaptRoute(registerGetController))
 
 	objectRepository := repository.NewObjectRepository(db)
 	registerRepository := repository.NewRegisterRepository(db)
 	registerCreteService := services.NewRegisterService(registerRepository, objectRepository)
 	registerCreateController := presentation.NewCreateRegisterController(registerCreteService)
-	router.POST(registry, AdaptRoute(registerCreateController))
+	router.POST(registry, adaptRoute(registerCreateController))
 }
