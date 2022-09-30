@@ -5,37 +5,35 @@ import (
 	"encoding/json"
 	"io/ioutil"
 
+	"github.com/ffelipelimao/delivery-service/internal/application/helpers"
 	"github.com/ffelipelimao/delivery-service/internal/application/services"
 	"github.com/ffelipelimao/delivery-service/internal/domain"
 )
 
-type CreteRegisterController struct {
-	registerService services.Service
+type CreateRegisterController struct {
+	RegisterService services.Service
 }
 
 func NewCreateRegisterController(service services.Service) Controller {
-	return &CreteRegisterController{
-		registerService: service,
+	return &CreateRegisterController{
+		RegisterService: service,
 	}
 }
 
-func (s *CreteRegisterController) Handle(req HttpRequest) HttpResponse {
+func (s *CreateRegisterController) Handle(req helpers.HttpRequest) helpers.HttpResponse {
 	ctx := context.TODO()
 	var register domain.Register
 
-	body, err := ioutil.ReadAll(req.Body)
+	body, _ := ioutil.ReadAll(req.Body)
+	err := json.Unmarshal(body, &register)
 	if err != nil {
-		return badRequest("invalid input", err.Error())
-	}
-	err = json.Unmarshal(body, &register)
-	if err != nil {
-		return badRequest("invalid input", err.Error())
+		return helpers.BadRequest("invalid input", err.Error())
 	}
 
-	register, err = s.registerService.CreateRegister(ctx, register)
+	register, err = s.RegisterService.Create(ctx, register)
 	if err != nil {
-		return internalServerError("internal server error", err.Error())
+		return helpers.InternalServerError("internal server error", err.Error())
 	}
 
-	return ok(register)
+	return helpers.Ok(register)
 }

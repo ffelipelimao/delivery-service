@@ -3,6 +3,7 @@ package database
 import (
 	"log"
 
+	"github.com/ffelipelimao/delivery-service/internal/domain"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
@@ -56,6 +57,9 @@ func (d *Database) Connect() (*gorm.DB, error) {
 
 	if d.Debug {
 		d.Db.LogMode(true)
+	}
+	if d.AutoMigrateDb {
+		d.Db.AutoMigrate(domain.Object{}, domain.Register{})
 	}
 	return d.Db, nil
 }

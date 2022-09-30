@@ -1,6 +1,7 @@
 package server
 
 import (
+	"github.com/ffelipelimao/delivery-service/internal/application/helpers"
 	"github.com/ffelipelimao/delivery-service/internal/application/presentation"
 	"github.com/gin-gonic/gin"
 )
@@ -15,7 +16,7 @@ func adaptRoute(controller presentation.Controller) func(c *gin.Context) {
 			presentationParam[param.Key] = param.Value
 		}
 
-		request := presentation.HttpRequest{Params: presentationParam, Query: queries, Body: c.Request.Body}
+		request := helpers.HttpRequest{Params: presentationParam, Query: queries, Body: c.Request.Body}
 		response := controller.Handle(request)
 		c.JSON(response.StatusCode, response.Body)
 	}
