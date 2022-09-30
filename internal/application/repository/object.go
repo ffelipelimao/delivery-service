@@ -5,6 +5,7 @@ import (
 	"github.com/jinzhu/gorm"
 )
 
+//go:generate mockgen -destination=./mocks/object.go -source=./object.go
 type ObjectRepository interface {
 	Insert(object domain.Object) (domain.Object, error)
 }

@@ -8,12 +8,12 @@ import (
 )
 
 type GetRegisterController struct {
-	registerService services.Service
+	RegisterService services.Service
 }
 
 func NewGetRegisterController(service services.Service) Controller {
 	return &GetRegisterController{
-		registerService: service,
+		RegisterService: service,
 	}
 }
 
@@ -22,7 +22,7 @@ func (s *GetRegisterController) Handle(req helpers.HttpRequest) helpers.HttpResp
 
 	ID := req.Params["id"]
 
-	register, err := s.registerService.Get(ctx, ID)
+	register, err := s.RegisterService.Get(ctx, ID)
 	if err != nil {
 		return helpers.InternalServerError("internal server error", err.Error())
 	}

@@ -5,6 +5,7 @@ import (
 	"github.com/jinzhu/gorm"
 )
 
+//go:generate mockgen -destination=./mocks/register.go -source=./register.go
 type RegisterRepository interface {
 	Insert(register domain.Register) (domain.Register, error)
 	Get(ID string) (domain.Register, error)

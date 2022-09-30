@@ -9,33 +9,32 @@ import (
 )
 
 type RegisterService struct {
-	registerRepository repository.RegisterRepository
-	objectRepository   repository.ObjectRepository
+	RegisterRepository repository.RegisterRepository
+	ObjectRepository   repository.ObjectRepository
 }
 
 func NewRegisterService(registerRepo repository.RegisterRepository, objectRepo repository.ObjectRepository) Service {
 	return RegisterService{
-		registerRepository: registerRepo,
-		objectRepository:   objectRepo,
+		RegisterRepository: registerRepo,
+		ObjectRepository:   objectRepo,
 	}
 }
 
 func (s RegisterService) Create(ctx context.Context, register domain.Register) (domain.Register, error) {
-
 	register.ID = uuid.NewString()
 
 	for _, object := range register.Objects {
 		object.ID = uuid.NewString()
 		object.RegisterID = register.ID
 
-		_, err := s.objectRepository.Insert(*object)
+		_, err := s.ObjectRepository.Insert(*object)
 		if err != nil {
 			return domain.Register{}, err
 		}
 
 	}
 
-	_, err := s.registerRepository.Insert(register)
+	_, err := s.RegisterRepository.Insert(register)
 	if err != nil {
 		return domain.Register{}, err
 	}
@@ -44,8 +43,7 @@ func (s RegisterService) Create(ctx context.Context, register domain.Register) (
 }
 
 func (s RegisterService) Get(ctx context.Context, ID string) (domain.Register, error) {
-	register, err := s.registerRepository.Get(ID)
-
+	register, err := s.RegisterRepository.Get(ID)
 	if err != nil {
 		return domain.Register{}, err
 	}

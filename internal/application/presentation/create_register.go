@@ -10,30 +10,27 @@ import (
 	"github.com/ffelipelimao/delivery-service/internal/domain"
 )
 
-type CreteRegisterController struct {
-	registerService services.Service
+type CreateRegisterController struct {
+	RegisterService services.Service
 }
 
 func NewCreateRegisterController(service services.Service) Controller {
-	return &CreteRegisterController{
-		registerService: service,
+	return &CreateRegisterController{
+		RegisterService: service,
 	}
 }
 
-func (s *CreteRegisterController) Handle(req helpers.HttpRequest) helpers.HttpResponse {
+func (s *CreateRegisterController) Handle(req helpers.HttpRequest) helpers.HttpResponse {
 	ctx := context.TODO()
 	var register domain.Register
 
-	body, err := ioutil.ReadAll(req.Body)
-	if err != nil {
-		return helpers.BadRequest("invalid input", err.Error())
-	}
-	err = json.Unmarshal(body, &register)
+	body, _ := ioutil.ReadAll(req.Body)
+	err := json.Unmarshal(body, &register)
 	if err != nil {
 		return helpers.BadRequest("invalid input", err.Error())
 	}
 
-	register, err = s.registerService.Create(ctx, register)
+	register, err = s.RegisterService.Create(ctx, register)
 	if err != nil {
 		return helpers.InternalServerError("internal server error", err.Error())
 	}
