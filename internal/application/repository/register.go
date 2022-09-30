@@ -7,6 +7,7 @@ import (
 
 type RegisterRepository interface {
 	Insert(register domain.Register) (domain.Register, error)
+	Get(ID string) (domain.Register, error)
 }
 
 type RegisterRepositoryDB struct {
@@ -22,6 +23,17 @@ func NewRegisterRepository(DB *gorm.DB) RegisterRepository {
 func (repo RegisterRepositoryDB) Insert(register domain.Register) (domain.Register, error) {
 
 	err := repo.DB.Create(register).Error
+	if err != nil {
+		return domain.Register{}, err
+	}
+
+	return register, nil
+}
+
+func (repo RegisterRepositoryDB) Get(ID string) (domain.Register, error) {
+	var register domain.Register
+
+	err := repo.DB.First(&register, ID).Error
 	if err != nil {
 		return domain.Register{}, err
 	}

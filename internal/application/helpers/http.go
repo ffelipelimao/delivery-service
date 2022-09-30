@@ -1,4 +1,4 @@
-package presentation
+package helpers
 
 import "io"
 
@@ -19,11 +19,11 @@ type Error struct {
 	Cause   string `json:"cause"`
 }
 
-func ok(body interface{}) HttpResponse {
+func Ok(body any) HttpResponse {
 	return HttpResponse{StatusCode: 200, Body: body}
 }
 
-func badRequest(message string, err string) HttpResponse {
+func BadRequest(message string, err string) HttpResponse {
 	return HttpResponse{StatusCode: 400, Body: Error{
 		Message: message,
 		Status:  400,
@@ -31,7 +31,7 @@ func badRequest(message string, err string) HttpResponse {
 	}}
 }
 
-func internalServerError(message string, err string) HttpResponse {
+func InternalServerError(message string, err string) HttpResponse {
 	return HttpResponse{StatusCode: 500, Body: Error{
 		Message: message,
 		Status:  500,

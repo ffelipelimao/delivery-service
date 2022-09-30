@@ -7,5 +7,6 @@ import (
 )
 
 type Service interface {
-	CreateRegister(ctx context.Context, register domain.Register) (domain.Register, error)
+	Create(ctx context.Context, register domain.Register) (domain.Register, error)
+	Get(ctx context.Context, ID string) (domain.Register, error)
 }

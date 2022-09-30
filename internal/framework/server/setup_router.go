@@ -16,13 +16,13 @@ const (
 func setup(g *gin.Engine, db *gorm.DB) {
 
 	router := g.Group("/v1/delivery")
-
-	registerGetController := presentation.NewGetRegisterController()
-	router.GET(registryByID, adaptRoute(registerGetController))
-
 	objectRepository := repository.NewObjectRepository(db)
 	registerRepository := repository.NewRegisterRepository(db)
-	registerCreteService := services.NewRegisterService(registerRepository, objectRepository)
-	registerCreateController := presentation.NewCreateRegisterController(registerCreteService)
+	registerService := services.NewRegisterService(registerRepository, objectRepository)
+
+	registerGetController := presentation.NewGetRegisterController(registerService)
+	router.GET(registryByID, adaptRoute(registerGetController))
+
+	registerCreateController := presentation.NewCreateRegisterController(registerService)
 	router.POST(registry, adaptRoute(registerCreateController))
 }

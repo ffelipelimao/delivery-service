@@ -20,7 +20,7 @@ func NewRegisterService(registerRepo repository.RegisterRepository, objectRepo r
 	}
 }
 
-func (s RegisterService) CreateRegister(ctx context.Context, register domain.Register) (domain.Register, error) {
+func (s RegisterService) Create(ctx context.Context, register domain.Register) (domain.Register, error) {
 
 	register.ID = uuid.NewString()
 
@@ -41,4 +41,15 @@ func (s RegisterService) CreateRegister(ctx context.Context, register domain.Reg
 	}
 
 	return register, nil
+}
+
+func (s RegisterService) Get(ctx context.Context, ID string) (domain.Register, error) {
+	register, err := s.registerRepository.Get(ID)
+
+	if err != nil {
+		return domain.Register{}, err
+	}
+
+	return register, nil
+
 }

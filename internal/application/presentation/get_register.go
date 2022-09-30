@@ -1,12 +1,31 @@
 package presentation
 
+import (
+	"context"
+
+	"github.com/ffelipelimao/delivery-service/internal/application/helpers"
+	"github.com/ffelipelimao/delivery-service/internal/application/services"
+)
+
 type GetRegisterController struct {
+	registerService services.Service
 }
 
-func NewGetRegisterController() Controller {
-	return &GetRegisterController{}
+func NewGetRegisterController(service services.Service) Controller {
+	return &GetRegisterController{
+		registerService: service,
+	}
 }
 
-func (s *GetRegisterController) Handle(req HttpRequest) HttpResponse {
-	return ok(req.Params)
+func (s *GetRegisterController) Handle(req helpers.HttpRequest) helpers.HttpResponse {
+	ctx := context.TODO()
+
+	ID := req.Params["id"]
+
+	register, err := s.registerService.Get(ctx, ID)
+	if err != nil {
+		return helpers.InternalServerError("internal server error", err.Error())
+	}
+
+	return helpers.Ok(register)
 }
