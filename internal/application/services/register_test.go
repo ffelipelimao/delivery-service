@@ -11,12 +11,12 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func Test_NewService(t *testing.T) {
+func TestNewService(t *testing.T) {
 	svc := services.NewRegisterService(nil, nil)
 	assert.NotNil(t, svc)
 }
 
-func Test_Service_Create_Ok(t *testing.T) {
+func TestServiceCreateOk(t *testing.T) {
 	ctrlMock := gomock.NewController(t)
 	defer ctrlMock.Finish()
 
@@ -44,7 +44,7 @@ func Test_Service_Create_Ok(t *testing.T) {
 	assert.Nil(t, err)
 }
 
-func Test_Service_Create_ObjRepoErr(t *testing.T) {
+func TestServiceCreateObjRepoErr(t *testing.T) {
 	ctrlMock := gomock.NewController(t)
 	defer ctrlMock.Finish()
 
@@ -68,7 +68,7 @@ func Test_Service_Create_ObjRepoErr(t *testing.T) {
 	assert.NotNil(t, err)
 }
 
-func Test_Service_Create_RegisterRepoErr(t *testing.T) {
+func TestServiceCreateRegisterRepoErr(t *testing.T) {
 	ctrlMock := gomock.NewController(t)
 	defer ctrlMock.Finish()
 
@@ -96,7 +96,7 @@ func Test_Service_Create_RegisterRepoErr(t *testing.T) {
 	assert.NotNil(t, err)
 }
 
-func Test_Service_Get_Ok(t *testing.T) {
+func TestServiceGetOk(t *testing.T) {
 	ctrlMock := gomock.NewController(t)
 	defer ctrlMock.Finish()
 
@@ -124,7 +124,7 @@ func Test_Service_Get_Ok(t *testing.T) {
 	assert.Equal(t, "1234", res.ID)
 }
 
-func Test_Service_Get_RepoErr(t *testing.T) {
+func TestServiceGetRepoErr(t *testing.T) {
 	ctrlMock := gomock.NewController(t)
 	defer ctrlMock.Finish()
 

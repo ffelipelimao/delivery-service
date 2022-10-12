@@ -11,12 +11,12 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func Test_NewGetRegister(t *testing.T) {
+func TestNewGetRegister(t *testing.T) {
 	ctrl := presentation.NewGetRegisterController(nil)
 	assert.NotNil(t, ctrl)
 }
 
-func Test_GetRegister_ok(t *testing.T) {
+func TestGetRegister_ok(t *testing.T) {
 	ctrlMock := gomock.NewController(t)
 	defer ctrlMock.Finish()
 

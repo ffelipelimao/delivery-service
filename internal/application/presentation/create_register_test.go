@@ -12,12 +12,12 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func Test_NewCreateRegister(t *testing.T) {
+func TestNewCreateRegister(t *testing.T) {
 	ctrl := presentation.NewCreateRegisterController(nil)
 	assert.NotNil(t, ctrl)
 }
 
-func Test_CreateRegister_ok(t *testing.T) {
+func TestCreateRegister_ok(t *testing.T) {
 	ctrlMock := gomock.NewController(t)
 	defer ctrlMock.Finish()
 
@@ -40,7 +40,7 @@ func Test_CreateRegister_ok(t *testing.T) {
 	assert.Equal(t, 200, response.StatusCode)
 }
 
-func Test_CreateRegister_badRequest(t *testing.T) {
+func TestCreateRegister_badRequest(t *testing.T) {
 	controller := presentation.CreateRegisterController{}
 
 	r := bytes.NewReader([]byte("{"))
@@ -52,7 +52,7 @@ func Test_CreateRegister_badRequest(t *testing.T) {
 	assert.Equal(t, 400, response.StatusCode)
 }
 
-func Test_CreateRegister_internalServerError(t *testing.T) {
+func TestCreateRegister_internalServerError(t *testing.T) {
 	ctrlMock := gomock.NewController(t)
 	defer ctrlMock.Finish()
 
