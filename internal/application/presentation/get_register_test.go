@@ -16,7 +16,7 @@ func TestNewGetRegister(t *testing.T) {
 	assert.NotNil(t, ctrl)
 }
 
-func TestGetRegister_ok(t *testing.T) {
+func TestGetRegisterOk(t *testing.T) {
 	ctrlMock := gomock.NewController(t)
 	defer ctrlMock.Finish()
 
@@ -41,7 +41,7 @@ func TestGetRegister_ok(t *testing.T) {
 	assert.Equal(t, 200, response.StatusCode)
 }
 
-func Test_GetRegister_internalError(t *testing.T) {
+func TestGetRegisterInternalError(t *testing.T) {
 	ctrlMock := gomock.NewController(t)
 	defer ctrlMock.Finish()
 
