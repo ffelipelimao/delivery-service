@@ -10,12 +10,12 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func Test_NewRegisterRepo(t *testing.T) {
+func TestNewRegisterRepo(t *testing.T) {
 	r := repository.NewRegisterRepository(nil)
 	assert.NotNil(t, r)
 }
 
-func Test_Register_Repository_Insert(t *testing.T) {
+func TestRegisterRepositoryInsert(t *testing.T) {
 	db := database.NewDbTest()
 	defer db.Close()
 
@@ -30,7 +30,7 @@ func Test_Register_Repository_Insert(t *testing.T) {
 	assert.Nil(t, err)
 }
 
-func Test_Register_Repository_Insert_Err(t *testing.T) {
+func TestRegisterRepositoryInsertErr(t *testing.T) {
 	db := database.NewDbTest()
 	defer db.Close()
 
@@ -42,7 +42,7 @@ func Test_Register_Repository_Insert_Err(t *testing.T) {
 	assert.NotNil(t, err)
 }
 
-func Test_Register_Repository_Get(t *testing.T) {
+func TestRegisterRepositoryGet(t *testing.T) {
 	db := database.NewDbTest()
 	defer db.Close()
 
@@ -62,7 +62,7 @@ func Test_Register_Repository_Get(t *testing.T) {
 	assert.Equal(t, "test", res.From)
 }
 
-func Test_Register_Repository_Get_Err(t *testing.T) {
+func TestRegisterRepositoryGetErr(t *testing.T) {
 	db := database.NewDbTest()
 	defer db.Close()
 
