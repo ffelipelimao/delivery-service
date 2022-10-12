@@ -17,7 +17,7 @@ func TestNewCreateRegister(t *testing.T) {
 	assert.NotNil(t, ctrl)
 }
 
-func TestCreateRegister_ok(t *testing.T) {
+func TestCreateRegisterOk(t *testing.T) {
 	ctrlMock := gomock.NewController(t)
 	defer ctrlMock.Finish()
 
@@ -40,7 +40,7 @@ func TestCreateRegister_ok(t *testing.T) {
 	assert.Equal(t, 200, response.StatusCode)
 }
 
-func TestCreateRegister_badRequest(t *testing.T) {
+func TestCreateRegisterBadRequest(t *testing.T) {
 	controller := presentation.CreateRegisterController{}
 
 	r := bytes.NewReader([]byte("{"))
@@ -52,7 +52,7 @@ func TestCreateRegister_badRequest(t *testing.T) {
 	assert.Equal(t, 400, response.StatusCode)
 }
 
-func TestCreateRegister_internalServerError(t *testing.T) {
+func TestCreateRegisterInternalServerError(t *testing.T) {
 	ctrlMock := gomock.NewController(t)
 	defer ctrlMock.Finish()
 
